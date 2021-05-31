@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-app.use('/', todos);
+app.use('/api/todos', todos);
 
 app.listen(5000, () => {
     console.log(`server is listening on port 5000...`);
