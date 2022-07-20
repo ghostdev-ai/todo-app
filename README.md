@@ -1,2 +1,2 @@
-# todo-node-app
+# Todo App
 https://ugomezjr.github.io/todo-node-app/
