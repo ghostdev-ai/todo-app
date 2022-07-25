@@ -8,10 +8,10 @@ import {
   Input,
   Button,
   Checkbox,
-  Text,
   Divider,
 } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { Formik } from 'formik';
 
 function App() {
   const [value, setValue] = useState("");
@@ -37,10 +37,10 @@ function App() {
         </Button>
       </HStack>
       <VStack>
-        {todos.map(({ description }, index) => (
-          <Container>
+        {todos.map(({ description }, id) => (
+          <Container key={id}>
             <HStack>
-              <Checkbox m='4' colorScheme='green' key={index}>{ description }</Checkbox>
+              <Checkbox flex='1' m='4' colorScheme='green'>{ description }</Checkbox>
               <DeleteIcon color='red.500' onClick={() => console.log('Clicked Icon!')} />
             </HStack>
             <Divider />
