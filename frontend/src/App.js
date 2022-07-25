@@ -7,9 +7,11 @@ import {
   VStack,
   Input,
   Button,
+  Checkbox,
   Text,
   Divider,
 } from "@chakra-ui/react";
+import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 
 function App() {
   const [value, setValue] = useState("");
@@ -29,7 +31,7 @@ function App() {
   return (
     <Container>
       <HStack p="4">
-        <Input placeholder="Enter Todo" onChange={handleChange} value={value} />
+        <Input placeholder="Things to accomplish." onChange={handleChange} value={value} />
         <Button mt={4} colorScheme="teal" type="submit" onClick={handleClick}>
           Submit
         </Button>
@@ -37,7 +39,10 @@ function App() {
       <VStack>
         {todos.map(({ description }, index) => (
           <Container>
-            <Text key={index}>{description}</Text>
+            <HStack>
+              <Checkbox m='4' colorScheme='green' key={index}>{ description }</Checkbox>
+              <DeleteIcon color='red.500' onClick={() => console.log('Clicked Icon!')} />
+            </HStack>
             <Divider />
           </Container>
         ))}
