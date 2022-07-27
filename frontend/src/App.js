@@ -1,54 +1,44 @@
 import React, { useState } from "react";
-//import logo from './logo.svg';
 import "./App.css";
-import {
-  Container,
-  HStack,
-  VStack,
-  Input,
-  Button,
-  Checkbox,
-  Divider,
-} from "@chakra-ui/react";
-import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
-import { Formik } from 'formik';
+import { Container } from "@chakra-ui/react";
 
-function App() {
-  const [value, setValue] = useState("");
-  const [todos, setTodos] = useState([
-    { description: "Pass the coding interviews!" },
-  ]);
+import { Formik } from "formik";
 
-  const handleChange = (e) => {
-    setValue(e.target.value);
-  };
+import { AddTodo } from "./components/AddTodo";
+import { TodoTable } from "./components/TodoTable";
 
-  const handleClick = () => {
-    setTodos((prevState) => [...prevState, { description: value }]);
-    setValue("");
-  };
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = { todos: TODOS };
+  }
 
-  return (
-    <Container>
-      <HStack p="4">
-        <Input placeholder="Things to accomplish." onChange={handleChange} value={value} />
-        <Button mt={4} colorScheme="teal" type="submit" onClick={handleClick}>
-          Submit
-        </Button>
-      </HStack>
-      <VStack>
-        {todos.map(({ description }, id) => (
-          <Container key={id}>
-            <HStack>
-              <Checkbox flex='1' m='4' colorScheme='green'>{ description }</Checkbox>
-              <DeleteIcon color='red.500' onClick={() => console.log('Clicked Icon!')} />
-            </HStack>
-            <Divider />
-          </Container>
-        ))}
-      </VStack>
-    </Container>
-  );
+  handleClick(newTodo) {
+    this.setState(
+      {
+        todos: [...this.state.todos, { todo: newTodo }],
+      },
+      () => console.log(this.state.todos)
+    );
+  }
+
+  render() {
+    return (
+      <Container>
+        <AddTodo onClick={this.handleClick} />
+        <TodoTable todos={this.state.todos} />
+      </Container>
+    );
+  }
 }
+
+const TODOS = [
+  { todo: "Pass the Coding Interviews." },
+  { todo: "Contribute to Open Source." },
+  { todo: "Practice Interview Questions on AlgoExpert." },
+  { todo: "Watch FireShip Coding Tutorials." },
+  { todo: "Read How To Crack The Coding Interview." },
+];
 
 export default App;
